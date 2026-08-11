@@ -1,0 +1,13 @@
+Django==5.2.*
+djangorestframework==3.15.*
+psycopg[binary]==3.2.*
+pgvector==0.3.*
+python-dotenv==1.0.*
+django-cors-headers==4.4.*
+openai==1.*
+tiktoken==0.8.*
+langgraph==0.2.*
+langchain-openai==0.2.*
+langchain-core==0.3.*
+kiwipiepy==0.23.*
+rank_bm25==0.2.*
