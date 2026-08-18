@@ -1,0 +1,53 @@
+# 배포용: db + Django(web) + nginx 를 한 번에 실행
+# 실행:  docker compose -f docker-compose.prod.yml up -d --build
+
+services:
+  # ── ① 데이터베이스 (PostgreSQL + pgvector) ──
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # DB가 '실제로 접속 가능한 상태'인지 확인 (web이 이걸 기다림)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ── ② Django (gunicorn) ──
+  web:
+    build: .                      # 루트의 Dockerfile 사용
+    env_file: .env                # .env 값을 컨테이너에 주입
+    # 실행 전 migrate·collectstatic 하고 gunicorn 시작
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --noinput &&
+             gunicorn solo_project.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    volumes:
+      - static:/app/staticfiles   # collectstatic 결과를 공유 볼륨에 저장
+    depends_on:
+      db:
+        condition: service_healthy  # DB 준비될 때까지 대기 (migrate 실패 방지)
+    restart: unless-stopped
+
+  # ── ③ nginx (문지기) ──
+  nginx:
+    build:
+      context: .                  # frontend/·nginx/ 접근 위해 루트가 컨텍스트
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "80:80"                   # 바깥 80포트 → nginx
+    volumes:
+      - static:/static            # Django 정적파일을 읽기용으로 연결
+    depends_on:
+      - web
+    restart: unless-stopped
+
+volumes:
+  pgdata:    # DB 데이터 (컨테이너 지워도 유지)
+  static:    # Django 정적파일 (web이 쓰고 nginx가 읽음)

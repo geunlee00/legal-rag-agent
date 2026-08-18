@@ -1,0 +1,23 @@
+# 백엔드 이미지에 넣지 않을 것들
+
+# 로컬 가상환경 (컨테이너에서 새로 설치하므로 불필요, 용량 큼)
+.venv/
+
+# 프론트엔드 (nginx 이미지에서 따로 빌드 — 백엔드엔 불필요, node_modules 큼)
+frontend/
+
+# 비밀값 (이미지에 박으면 안 됨 → 실행 시 env로 주입)
+.env
+
+# 파이썬 캐시
+__pycache__/
+*.pyc
+
+# git / 에디터 / 문서
+.git/
+.gitignore
+.claude/
+*.md
+
+# collectstatic 결과물 (컨테이너 안에서 새로 생성)
+staticfiles/
