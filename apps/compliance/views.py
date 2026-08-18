@@ -4,6 +4,7 @@ from rest_framework import status
 
 from apps.compliance.serializers import CompanyProfileSerializer
 from apps.compliance.services.diagnosis import diagnose
+from apps.compliance.services.evidence import add_evidence
 
 
 class DiagnoseView(APIView):
@@ -21,6 +22,9 @@ class DiagnoseView(APIView):
 
         # ④ 핵심: 저장된 프로필로 적용 법령을 진단한다
         result = diagnose(profile)
+
+        # ④-2 근거보강: 진단된 각 법령에 실제 조문(evidence)을 붙인다
+        result = add_evidence(result)
 
         # ⑤ 결과를 JSON으로 응답 (201 = 새로 만들어짐)
         return Response(

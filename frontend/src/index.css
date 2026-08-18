@@ -4,12 +4,16 @@
    - brand: 신뢰감 있는 네이비/인디고 계열 (리걸테크 톤)
    - 아래 색은 클래스에서 bg-brand-600, text-brand-700 처럼 사용 */
 @theme {
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-900: #1e1b4b;
+  /* 팔레트: #3368A0(진블루) / #66A3BF(중블루) / #C8DFDB(연청록) / #F2EFE7(크림) */
+  --color-brand-50: #eaf2f8;   /* 아주 연한 블루 틴트 */
+  --color-brand-100: #C8DFDB;  /* 연청록 (배지·연배경) */
+  --color-brand-200: #a9cdcf;  /* 테두리용 */
+  --color-brand-400: #66A3BF;  /* 중간 블루 (포커스) */
+  --color-brand-500: #4f8bab;
+  --color-brand-600: #3368A0;  /* 메인 (버튼·로고·강조) */
+  --color-brand-700: #2a5585;  /* hover용 진한 블루 */
+  --color-brand-900: #1f3f62;
+  --color-cream: #F2EFE7;      /* 크림 (섹션 배경) */
   --font-sans: "Pretendard", ui-sans-serif, system-ui, sans-serif;
 }
 

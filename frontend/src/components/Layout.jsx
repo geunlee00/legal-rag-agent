@@ -34,7 +34,7 @@ export default function Layout() {
       </main>
 
       {/* 푸터 */}
-      <footer className="border-t border-slate-200 bg-slate-50">
+      <footer className="border-t border-slate-200 bg-cream">
         <div className="mx-auto max-w-6xl px-6 py-8 text-sm text-slate-500 flex flex-col sm:flex-row justify-between gap-2">
           <p>© 2026 법침반 (LOPAS) — 법령 속에서 근거를 짚어주는 AI 나침반</p>
           <p className="text-slate-400">본 서비스는 정보 제공용이며 법률 자문이 아닙니다.</p>

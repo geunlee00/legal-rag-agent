@@ -155,6 +155,23 @@ export default function Diagnose() {
               <div key={i} className="rounded-xl border border-slate-200 p-5">
                 <h3 className="font-semibold text-brand-700">📋 {item.law}</h3>
                 <p className="mt-1 text-slate-600 text-sm leading-relaxed">{item.reason}</p>
+
+                {/* 근거 조문: evidence가 있으면 목록, 없으면 안내 문구 */}
+                {item.evidence && item.evidence.length > 0 ? (
+                  <div className="mt-3 space-y-2">
+                    <p className="text-xs font-semibold text-slate-400">근거 조문</p>
+                    {item.evidence.map((ev, j) => (
+                      <div key={j} className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+                        <p className="text-sm font-medium text-slate-800">
+                          {ev.article_no} {ev.article_title}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500 leading-relaxed">{ev.content}</p>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="mt-3 text-xs text-slate-400">· 관련 조문 데이터가 아직 없습니다.</p>
+                )}
               </div>
             ))}
           </div>
