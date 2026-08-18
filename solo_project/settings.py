@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "apps.rag",
+    "apps.work",
+    "apps.compliance",
 ]
 
 MIDDLEWARE = [
