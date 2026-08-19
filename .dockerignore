@@ -3,8 +3,10 @@
 # 로컬 가상환경 (컨테이너에서 새로 설치하므로 불필요, 용량 큼)
 .venv/
 
-# 프론트엔드 (nginx 이미지에서 따로 빌드 — 백엔드엔 불필요, node_modules 큼)
-frontend/
+# 프론트엔드: nginx 빌드가 frontend 소스를 써야 하므로 통째 제외 X.
+# 무거운 것(node_modules)과 빌드결과(dist)만 제외.
+frontend/node_modules/
+frontend/dist/
 
 # 비밀값 (이미지에 박으면 안 됨 → 실행 시 env로 주입)
 .env

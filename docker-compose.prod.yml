@@ -27,7 +27,7 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
-             gunicorn solo_project.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+             gunicorn solo_project.wsgi:application --bind 0.0.0.0:8000 --workers 2"
     volumes:
       - static:/app/staticfiles   # collectstatic 결과를 공유 볼륨에 저장
     depends_on:
